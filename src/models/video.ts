@@ -11,11 +11,9 @@ export interface Video {
   projectId: number
 }
 
-export interface VideoCreationAttributes
-  extends Optional<Video, 'id' | 'videoUrl' | 'secondsLong' > {}
+export interface VideoCreationAttributes extends Optional<Video, 'id' | 'videoUrl' | 'secondsLong' > {}
 
-export interface VideoInstance
-  extends Model<Video, VideoCreationAttributes>, Video {}
+export interface VideoInstance extends Model<Video, VideoCreationAttributes>, Video {}
 
 export const Video = sequelize.define<VideoInstance, Video>('Video', {
   id: {
