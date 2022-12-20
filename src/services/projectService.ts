@@ -10,7 +10,7 @@ export const projectService = {
                 ['thumbnail_url', 'thumbnailUrl']
             ],
             include: {
-                association: 'Videos',
+                association: 'videos',
                 attributes: [
                     'id',
                     'name',
@@ -25,5 +25,23 @@ export const projectService = {
         })
 
         return projectWithVideos
+    },
+
+    getRandomFeaturedProjects: async () => {
+        const featuredProjects = await Project.findAll({
+            attributes: [
+                'id',
+                'name', 
+                'synopsis', 
+                ['thumbnail_url', 'thumbnailUrl']
+            ],
+            where: {
+                featured: true
+            }
+        })
+
+        const randomFeaturedProjcts = featuredProjects.sort(() => 0.5 - Math.random())
+
+        return randomFeaturedProjcts.slice(0, 3)
     }
 }
