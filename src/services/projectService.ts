@@ -1,3 +1,4 @@
+import { Op } from "sequelize"
 import { Project } from "../models"
 
 export const projectService = {
@@ -52,5 +53,31 @@ export const projectService = {
         })
 
         return projects
+    },
+
+    findByName: async (name: string, page: number, perPage: number) => {
+        const offset = (page - 1) * perPage
+        const { count, rows } = await Project.findAndCountAll({
+            attributes: [
+                'id',
+                'name', 
+                'synopsis', 
+                ['thumbnail_url', 'thumbnailUrl']
+            ],
+            where: {
+                name: {
+                    [Op.iLike]: `%${name}%`
+                }
+            },
+            limit: perPage,
+            offset
+        })
+
+        return {
+            projects: rows,
+            page,
+            perPage,
+            total: count
+        }
     }
 }
