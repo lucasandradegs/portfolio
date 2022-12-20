@@ -3,7 +3,7 @@ import { Project } from "./Project";
 import { Video } from "./video";
 import { User } from "./user";
 
-Category.hasMany(Project)
+Category.hasMany(Project, { as: 'projects' })
 
 Project.belongsTo(Category)
 Project.hasMany(Video)
