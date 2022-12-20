@@ -43,5 +43,14 @@ export const projectService = {
         const randomFeaturedProjcts = featuredProjects.sort(() => 0.5 - Math.random())
 
         return randomFeaturedProjcts.slice(0, 3)
+    },
+
+    getTopTenNewest: async () => {
+        const projects = await Project.findAll({
+            limit: 10,
+            order: [['created_at', 'DESC']]
+        })
+
+        return projects
     }
 }
