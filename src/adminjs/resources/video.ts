@@ -21,6 +21,6 @@ export const videoResourceFeatures: FeatureType[] = [
             key: 'videoUrl',
             file: 'uploadVideo'
         },
-        uploadPath: (record, filename) => `watch/project-${record.get('projectId')}/${filename}`
+        uploadPath: (record, filename) => `videos/project-${record.get('projectId')}/${filename}`
     })
 ]
