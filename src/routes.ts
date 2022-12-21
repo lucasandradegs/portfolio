@@ -21,6 +21,7 @@ router.get('/projects/:id', ensureAuth, projectsController.show)
 
 router.get('/videos/stream', ensureAuthViaQuery, videosController.stream)
 
+router.get('/favorites', ensureAuth, favoritesController.index)
 router.post('/favorites', ensureAuth, favoritesController.save)
 
 export { router }
