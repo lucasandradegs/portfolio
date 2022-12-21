@@ -17,6 +17,7 @@ router.get('/categories/:id',ensureAuth, categoriesController.show)
 
 router.get('/projects/featured', ensureAuth, projectsController.featured)
 router.get('/projects/newest', projectsController.newest)
+router.get('/projects/popular', ensureAuth, projectsController.popular)
 router.get('/projects/search', ensureAuth, projectsController.search)
 router.get('/projects/:id', ensureAuth, projectsController.show)
 

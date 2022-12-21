@@ -55,6 +55,33 @@ export const projectService = {
         return projects
     },
 
+    getTopTenByLikes: async () => {
+        const result = await Project.sequelize?.query(
+            `SELECT
+                projects.id,
+                projects.name,
+                projects.synopsis,
+                projects.thumbnail_url AS thumbnailUrl,
+                COUNT(users.id) AS likes
+            FROM projects
+                LEFT OUTER JOIN likes
+                    ON projects.id = likes.project_id
+                    INNER JOIN users
+                        ON users.id = likes.user_id
+            GROUP BY projects.id
+            ORDER BY likes DESC
+            LIMIT 10;
+            `
+        )
+
+        if (result) {
+            const [topTen] = result
+            return topTen
+        } else {
+            return null
+        }
+    },
+
     findByName: async (name: string, page: number, perPage: number) => {
         const offset = (page - 1) * perPage
         const { count, rows } = await Project.findAndCountAll({
