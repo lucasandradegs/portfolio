@@ -1,6 +1,7 @@
 import express from 'express'
 import { authController } from './controllers/authController'
 import { categoriesController } from './controllers/categoriesController'
+import { favoritesController } from './controllers/favoritesController'
 import { projectsController } from './controllers/projectsController'
 import { videosController } from './controllers/videosController'
 import { ensureAuth, ensureAuthViaQuery } from './middlewares/auth'
@@ -19,4 +20,7 @@ router.get('/projects/search', ensureAuth, projectsController.search)
 router.get('/projects/:id', ensureAuth, projectsController.show)
 
 router.get('/videos/stream', ensureAuthViaQuery, videosController.stream)
+
+router.post('/favorites', ensureAuth, favoritesController.save)
+
 export { router }
