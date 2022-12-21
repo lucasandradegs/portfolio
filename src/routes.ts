@@ -1,6 +1,7 @@
 import express from 'express'
 import { categoriesController } from './controllers/categoriesController'
 import { projectsController } from './controllers/projectsController'
+import { videosController } from './controllers/videosController'
 
 const router = express.Router()
 
@@ -12,4 +13,5 @@ router.get('/projects/newest', projectsController.newest)
 router.get('/projects/search', projectsController.search)
 router.get('/projects/:id', projectsController.show)
 
+router.get('/videos/stream', videosController.stream)
 export { router }
