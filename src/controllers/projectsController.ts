@@ -1,5 +1,8 @@
 import { Request, Response } from "express"
 import { getPaginationParams } from "../helpers/getPaginationParams"
+import { AuthenticatedRequest } from "../middlewares/auth"
+import { favoriteService } from "../services/favoriteService"
+import { likeService } from "../services/likeService"
 import { projectService } from "../services/projectService"
 
 export const projectsController = {
@@ -39,12 +42,18 @@ export const projectsController = {
         }
     },
 
-    show: async (req: Request, res: Response) => {
-        const { id } = req.params
+    show: async (req: AuthenticatedRequest, res: Response) => {
+        const userId = req.user!.id
+        const projectId = req.params.id
 
         try{
-            const project = await projectService.findByIdWithVideos(id)
-            return res.json(project)
+            const project = await projectService.findByIdWithVideos(projectId)
+
+            if (!project) return res.json({ message: 'Projeto não encontrado' })
+            
+            const liked = await likeService.isLiked(userId, Number(projectId))
+            const favorited = await favoriteService.isFavorited(userId, Number(projectId))
+            return res.json({...project.get(), favorited, liked})
         } catch (err) {
             if (err instanceof Error) {
                 return res.status(400).json({ message: err.message })
