@@ -21,6 +21,6 @@ export const projectResourceFeatures: FeatureType[] = [
       key: 'thumbnailUrl',
       file: 'uploadThumbnail'
     },
-    uploadPath: (record, filename) => `thumbnails/projects'-${record.get('id')}/${filename}`
+    uploadPath: (record, filename) => `thumbnails/projects-${record.get('id')}/${filename}`
   })
 ]
